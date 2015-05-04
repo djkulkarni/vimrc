@@ -108,7 +108,9 @@ Plugin 'gmarik/Vundle.vim'
 Plugin 'scrooloose/nerdtree'
 Plugin 'vim-scripts/L9'
 Plugin 'vim-scripts/FuzzyFinder'
-Plugin 'itchyny/lightline.vim'
+Plugin 'kein/ctrlp.vim'
+"Plugin 'itchyny/lightline.vim'
+Plugin 'bling/vim-airline'
 Plugin 'Lokaltog/vim-easymotion'
 Plugin 'tpope/vim-surround'
 Plugin 'SirVer/ultisnips'
@@ -126,12 +128,12 @@ Plugin 'hail2u/vim-css3-syntax'
 call vundle#end()    " required for vundle
 
 " Start NERDTree on start-up and focus active window
-autocmd VimEnter * NERDTree C:\
+" autocmd VimEnter * NERDTree C:\
 autocmd VimEnter * wincmd p
 
 " map FuzzyFinder
 noremap <leader>b :FufBuffer<cr>
-noremap <leader>f :FufFile<cr>
+noremap <leader>f :FufFile **/<cr>
 
 " Use zencoding with <C-E>
 let g:user_emmet_leader_key = '<c-e>'
@@ -150,7 +152,6 @@ let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 " To make UltiSnipsEdit split the window vertically
 let g:UltiSnipsEditSplit="verticle"
 
-
 " run JSHint when a file with .js extension is saved
 autocmd BufWritePost *.js silent :JSHint
 
@@ -164,4 +165,15 @@ autocmd FileType javascript :UltiSnipsAddFiletypes javascript
 autocmd FileType css :UltiSnipsAddFiletypes css
 autocmd FileType cs :UltiSnipsAddFiletypes cs
 autocmd FileType vim :UltiSnipsAddFiletypes vim
+
+set laststatus=2
+function! AirlineInit()
+    let g:airline_section_a = airline#section#create(['mode', ' ', 'branch'])
+    let g:airline_section_b = airline#section#create(['ffenc', 'hunks', '%f'])
+    let g:airline_section_c = airline#section#create(['filetype'])
+    let g:airline_section_d = airline#section#create(['%P'])
+    let g:airline_section_e = airline#section#create(['%B'])
+    let g:airline_section_f = airline#section#create_right(['%l', '%c'])
+endfunction
+autocmd VimEnter * call AirlineInit()
 
